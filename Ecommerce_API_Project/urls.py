@@ -22,6 +22,9 @@ from ecommerce.views import (
     ProductListCreateView, ProductRetrieveUpdateDestroyView,
     OrderListCreateView, OrderRetrieveUpdateDestroyView
 )
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +36,19 @@ urlpatterns = [
     path('products/<int:pk>/', ProductRetrieveUpdateDestroyView.as_view(), name='product-detail'),
     path('orders/', OrderListCreateView.as_view(), name='order-list'),
     path('orders/<int:pk>/', OrderRetrieveUpdateDestroyView.as_view(), name='order-detail'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+# using fuctions:
+# from django.urls import path,include
+# # from ecommerce import views
+# from django.contrib import admin
+# from django.conf import settings
+# from django.conf.urls.static import static
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('',include('ecommerce.urls')),
+# ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

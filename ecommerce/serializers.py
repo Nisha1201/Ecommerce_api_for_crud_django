@@ -12,9 +12,9 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    # image = serializers.ImageField(
-    #     max_length=None, use_url=True,
-    # )
+    image = serializers.ImageField(
+        max_length=None, use_url=True,
+    )
     class Meta:
         model = Products
         fields = '__all__'
