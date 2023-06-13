@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ecommerce',
     'rest_framework',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -131,18 +132,47 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# not need:
-# REST_FRAMEWORK = {
-#     'DEFAULT_PARSER_CLASSES': (
-#         'rest_framework.parsers.JSONParser',
-#         'rest_framework.parsers.FormParser',
-#         'rest_framework.parsers.MultiPartParser',
-#     ),
-#     # Other REST framework settings...
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+# Configure token settings
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+# AUTH_USER_MODEL = 'ecommerce.Customer'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
-AUTH_USER_MODEL = 'ecommerce.Customer'
+
+# settings.py
+
+# Email Backend Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Update with your email host
+EMAIL_PORT = 587  # Update with the port number for your email host
+EMAIL_HOST_USER = 'sahunisha.bluethink@gmail.com'  # Update with your email address
+EMAIL_HOST_PASSWORD = 'fppjukfpeueyzhxv' # Update with your email password
+EMAIL_USE_TLS = True  # Use TLS encryption for secure communication with the email server
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Set the default sender email address
+
+
+#  OTP settings for Twilio
+
+TWILIO_ACCOUNT_SID = 'AC9124c9f9d6ebad6bffa281e0d3604bb4'
+TWILIO_AUTH_TOKEN =  '1e6de29e7dc0429b161c0f1a7de5cd86'
+TWILIO_FROM_NUMBER = '+16073604837'
+
+
 
 
 
